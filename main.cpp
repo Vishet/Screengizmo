@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+#include "App.h"
 #include "Exception.h"
 
 #include <windows.h>
@@ -7,17 +7,8 @@ int APIENTRY wWinMain(HINSTANCE instanceHandle, HINSTANCE hPrev, PWSTR cmdLine, 
 {
 	try
 	{
-		MainWindow window{};
-		window.Initialize();
-		window.Show();
-
-		MSG msg{};
-		while (msg.message != WM_QUIT)
-		{
-			PeekMessageW(&msg, NULL, 0, 0, PM_REMOVE);
-			TranslateMessage(&msg);
-			DispatchMessageW(&msg);
-		}
+		App app{};
+		return app.Run();
 	}
 	catch (const Exception& e)
 	{
@@ -31,6 +22,6 @@ int APIENTRY wWinMain(HINSTANCE instanceHandle, HINSTANCE hPrev, PWSTR cmdLine, 
 	{
 		MessageBoxA(nullptr, "No details avaliable!", "Undentified error!", MB_OK | MB_ICONERROR);
 	}
-	
-	return 0;
+
+	return -1;
 }

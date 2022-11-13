@@ -23,15 +23,19 @@ LRESULT MainWindow::WindowProcedure(HWND windowHandle, UINT message, WPARAM wPar
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
+		case Menus::CAPTURE:
+			captureRequested = true;
+			break;
 		case Menus::HIDE:
-		{
 			Hide();
-		}
+			break;
 		}
 		break;
 	default:
 		return DefWindowProc(windowHandle, message, wParam, lParam);
 	}
+
+	return 0;
 }
 
 void MainWindow::SetMenus(HWND windowHandle) const

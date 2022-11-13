@@ -12,6 +12,7 @@ private:
 		CAPTURE,
 		HIDE
 	};
+	bool captureRequested{ false };
 
 public:
 	MainWindow(const MainWindow&) = delete;
@@ -21,6 +22,8 @@ public:
 
 	MainWindow() noexcept;
 	~MainWindow() noexcept;
+
+	bool IsCaptureRequested() const noexcept { return captureRequested; }
 
 private:
 	LRESULT WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept override;

@@ -128,12 +128,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="CaptureWindow.cpp" />
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="GenericWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="CaptureWindow.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="GenericWindow.h" />
     <ClInclude Include="MainWindow.h" />
