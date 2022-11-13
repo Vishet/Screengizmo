@@ -6,6 +6,13 @@
 
 class MainWindow : public GenericWindow
 {
+private:
+	enum Menus
+	{
+		CAPTURE,
+		HIDE
+	};
+
 public:
 	MainWindow(const MainWindow&) = delete;
 	MainWindow(const MainWindow&&) = delete;
@@ -17,4 +24,5 @@ public:
 
 private:
 	LRESULT WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept override;
+	void SetMenus(HWND windowHandle) const;
 };
