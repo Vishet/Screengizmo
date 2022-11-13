@@ -41,8 +41,9 @@ std::optional<int> App::ProcessMessages() noexcept
 
 void App::Update() noexcept
 {
-	if (mainWindow.IsCaptureRequested())
+	if (mainWindow.PeekCaptureRequest())
 	{
+		captureWindow.Show();
 		captureWindow.Capture();
 	}
 }

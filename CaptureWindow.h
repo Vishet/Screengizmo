@@ -16,7 +16,7 @@ public:
 	CaptureWindow operator=(const CaptureWindow&) = delete;
 	CaptureWindow operator=(const CaptureWindow&&) = delete;
 
-	void Capture() const noexcept;
+	void Capture() const;
 
 private:
 	LRESULT WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept override;

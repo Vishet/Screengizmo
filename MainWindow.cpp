@@ -10,6 +10,17 @@ MainWindow::~MainWindow()
 {
 }
 
+bool MainWindow::PeekCaptureRequest() noexcept
+{
+	if (isCaptureRequested)
+	{
+		isCaptureRequested = false;
+		return true;
+	}
+
+	return false;
+}
+
 LRESULT MainWindow::WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept
 {
 	switch (message)
@@ -24,7 +35,7 @@ LRESULT MainWindow::WindowProcedure(HWND windowHandle, UINT message, WPARAM wPar
 		switch (LOWORD(wParam))
 		{
 		case Menus::CAPTURE:
-			captureRequested = true;
+			isCaptureRequested = true;
 			break;
 		case Menus::HIDE:
 			Hide();

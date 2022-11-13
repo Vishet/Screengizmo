@@ -16,7 +16,6 @@ GenericWindow::GenericWindow(
 
 GenericWindow::~GenericWindow() noexcept
 {
-	DestroyWindow(windowHandle);
 }
 
 void GenericWindow::Show() const noexcept
@@ -82,7 +81,7 @@ void GenericWindow::CreateClass() const
 	wndClass.cbClsExtra = 0;
 	wndClass.cbSize = sizeof(WNDCLASSEX);
 	wndClass.cbWndExtra = 0;
-	wndClass.hbrBackground = (HBRUSH)COLOR_WINDOW;
+	wndClass.hbrBackground = NULL;
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wndClass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);

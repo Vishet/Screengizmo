@@ -12,7 +12,7 @@ private:
 		CAPTURE,
 		HIDE
 	};
-	bool captureRequested{ false };
+	bool isCaptureRequested{ false };
 
 public:
 	MainWindow(const MainWindow&) = delete;
@@ -23,7 +23,7 @@ public:
 	MainWindow() noexcept;
 	~MainWindow() noexcept;
 
-	bool IsCaptureRequested() const noexcept { return captureRequested; }
+	bool PeekCaptureRequest() noexcept;
 
 private:
 	LRESULT WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept override;
