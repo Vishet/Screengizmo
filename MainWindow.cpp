@@ -2,7 +2,7 @@
 #include "Exception.h"
 
 MainWindow::MainWindow() noexcept :
-	GenericWindow("Screengizmo", 0, 0, WS_OVERLAPPED | WS_SYSMENU)
+	GenericWindow("Screengizmo", 0, 0, false, WS_OVERLAPPED | WS_SYSMENU)
 {
 }
 

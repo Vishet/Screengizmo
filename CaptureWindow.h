@@ -5,7 +5,7 @@
 class CaptureWindow : public GenericWindow
 {
 private:
-
+	bool isSaveRequested{ false };
 
 public:
 	CaptureWindow() noexcept;
@@ -17,6 +17,7 @@ public:
 	CaptureWindow operator=(const CaptureWindow&&) = delete;
 
 	void Capture() const;
+	bool PeekSaveRequest() noexcept;
 
 private:
 	LRESULT WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept override;

@@ -12,6 +12,7 @@ private:
 	std::string title;
 	int width;
 	int height;
+	bool absoluteDimension;
 	const DWORD style;
 
 public:
@@ -22,7 +23,8 @@ public:
 
 	GenericWindow(
 		const std::string& title, 
-		int width, int height, DWORD style
+		int width, int height, bool absoluteDimension,
+		DWORD style
 	) noexcept;
 	~GenericWindow() noexcept;
 

@@ -131,6 +131,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="CaptureWindow.cpp" />
     <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="FileSaver.cpp" />
     <ClCompile Include="GenericWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="CaptureWindow.h" />
     <ClInclude Include="Exception.h" />
+    <ClInclude Include="FileSaver.h" />
     <ClInclude Include="GenericWindow.h" />
     <ClInclude Include="MainWindow.h" />
   </ItemGroup>

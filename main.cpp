@@ -2,13 +2,14 @@
 #include "Exception.h"
 
 #include <windows.h>
+#include <memory>
 
 int APIENTRY wWinMain(HINSTANCE instanceHandle, HINSTANCE hPrev, PWSTR cmdLine, int cmdshow)
 {
 	try
 	{
-		App app{};
-		return app.Run();
+		auto app{ std::make_unique<App>() };
+		return app->Run();
 	}
 	catch (const Exception& e)
 	{

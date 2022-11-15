@@ -2,6 +2,11 @@
 
 App::App()
 {
+	CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+
+	Gdiplus::GdiplusStartupInput gdipInput{};
+	Gdiplus::GdiplusStartup(&gdipToken, &gdipInput, NULL);
+
 	mainWindow.Initialize();
 	mainWindow.Show();
 
@@ -10,6 +15,8 @@ App::App()
 
 App::~App()
 {
+	Gdiplus::GdiplusShutdown(gdipToken);
+	CoUninitialize();
 }
 
 int App::Run()
@@ -39,11 +46,16 @@ std::optional<int> App::ProcessMessages() noexcept
 	return {};
 }
 
-void App::Update() noexcept
+void App::Update()
 {
 	if (mainWindow.PeekCaptureRequest())
 	{
 		captureWindow.Show();
 		captureWindow.Capture();
+	}
+	else if (captureWindow.PeekSaveRequest())
+	{
+		fileSaver.Save(captureWindow.GetWindowHandle());
+		captureWindow.Hide();
 	}
 }

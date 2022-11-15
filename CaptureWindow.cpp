@@ -1,8 +1,10 @@
 #include "CaptureWindow.h"
 #include "Exception.h"
 
+#define VK_S 0x53
+
 CaptureWindow::CaptureWindow() noexcept :
-	GenericWindow("", GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), WS_POPUP)
+	GenericWindow("", GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), true, WS_POPUP)
 {
 }
 
@@ -46,6 +48,17 @@ void CaptureWindow::Capture() const
 	ReleaseDC(GetWindowHandle(), windowDC);
 }
 
+bool CaptureWindow::PeekSaveRequest() noexcept
+{
+	if (isSaveRequested)
+	{
+		isSaveRequested = false;
+		return true;
+	}
+
+	return false;
+}
+
 LRESULT CaptureWindow::WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept
 {
 	switch (message)
@@ -58,6 +71,12 @@ LRESULT CaptureWindow::WindowProcedure(HWND windowHandle, UINT message, WPARAM w
 		{
 		case VK_ESCAPE:
 			Hide();
+			break;
+		case VK_S:
+			if (GetKeyState(VK_LCONTROL))
+			{
+				isSaveRequested = true;
+			}
 			break;
 		}
 		break;

@@ -5,17 +5,20 @@ bool GenericWindow::isClassCreated{ false };
 
 GenericWindow::GenericWindow(
 	const std::string& title, 
-	int width, int height, DWORD style
+	int width, int height, bool absoluteDimension,
+	DWORD style
 ) noexcept :
 	title{ title },
 	width{ width },
 	height{ height },
+	absoluteDimension{ absoluteDimension },
 	style{ style }
 {
 }
 
 GenericWindow::~GenericWindow() noexcept
 {
+	SetWindowLongPtr(windowHandle, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(nullptr));
 }
 
 void GenericWindow::Show() const noexcept
@@ -39,7 +42,8 @@ void GenericWindow::Initialize()
 	RECT rect{};
 	rect.right = width;
 	rect.bottom = height;
-	THROW_IF_LAST_FAILED(AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, true));
+	if(!absoluteDimension)
+		THROW_IF_LAST_FAILED(AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, true));
 
 	windowHandle = CreateWindowEx(
 		NULL,
@@ -51,6 +55,7 @@ void GenericWindow::Initialize()
 		GetModuleHandle(0),
 		this
 	);
+
 	THROW_IF_LAST_FAILED(windowHandle);
 }
 
