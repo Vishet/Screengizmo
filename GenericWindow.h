@@ -30,6 +30,7 @@ public:
 
 	void Show() const noexcept;
 	void Hide() const noexcept;
+	bool isVisible() const noexcept;
 	HWND GetWindowHandle() const noexcept { return windowHandle; }
 	void Initialize();
 

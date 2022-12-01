@@ -3,6 +3,7 @@
 #include "MainWindow.h"
 #include "CaptureWindow.h"
 #include "FileSaver.h"
+#include "Editor.h"
 #include <optional>
 
 class App
@@ -12,6 +13,7 @@ private:
 	CaptureWindow captureWindow{};
 	FileSaver fileSaver{};
 	ULONG_PTR gdipToken{};
+	Editor editor{};
 
 public:
 	App();
@@ -27,5 +29,6 @@ public:
 private:
 	std::optional<int> ProcessMessages() noexcept;
 	void Update();
+	void Render() const;
 };
 

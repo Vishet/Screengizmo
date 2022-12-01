@@ -22,6 +22,8 @@ void FileSaver::Save(HWND sourceWindow) const
 	HBITMAP screenBitmap{ GetBackgroundHandle(sourceWindow) };
 	std::wstring fileName{ OpenSaveDialog() };
 	SaveBitmapToFile(screenBitmap, fileName);
+
+	DeleteObject(screenBitmap);
 }
 
 HBITMAP FileSaver::GetBackgroundHandle(HWND sourceWindow) const

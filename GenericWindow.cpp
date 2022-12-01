@@ -31,6 +31,11 @@ void GenericWindow::Hide() const noexcept
 	ShowWindow(windowHandle, SW_HIDE);
 }
 
+bool GenericWindow::isVisible() const noexcept
+{
+	return IsWindowVisible(windowHandle);
+}
+
 void GenericWindow::Initialize()
 {
 	if (!isClassCreated)

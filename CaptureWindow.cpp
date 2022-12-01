@@ -10,9 +10,10 @@ CaptureWindow::CaptureWindow() noexcept :
 
 CaptureWindow::~CaptureWindow() noexcept
 {
+	DeleteObject(backgroundBitmap);
 }
 
-void CaptureWindow::Capture() const
+HBITMAP CaptureWindow::Capture() const
 {
 	HDC screenDC{ GetDC(NULL) };
 	THROW_IF_FAILED_GDI(screenDC, "Could not get the screen device context");
@@ -23,11 +24,13 @@ void CaptureWindow::Capture() const
 	int screenWidth{ GetSystemMetrics(SM_CXSCREEN) };
 	int screenHeight{ GetSystemMetrics(SM_CYSCREEN) };
 
-	HBITMAP bitmapHandle{ CreateCompatibleBitmap(screenDC, screenWidth, screenHeight) };
-	THROW_IF_FAILED_GDI(bitmapHandle, "Could not create a bitmap compatible with the screen");
+	if (backgroundBitmap) 
+		DeleteObject(backgroundBitmap);
+	HBITMAP backgroundBitmap = CreateCompatibleBitmap(screenDC, screenWidth, screenHeight);
+	THROW_IF_FAILED_GDI(backgroundBitmap, "Could not create a bitmap compatible with the screen");
 
 	THROW_IF_FAILED_GDI(
-		SelectObject(memoryDC, bitmapHandle),
+		SelectObject(memoryDC, backgroundBitmap),
 		"Could not select a bitmap as object of the screen compatible DC"
 	);
 
@@ -36,16 +39,10 @@ void CaptureWindow::Capture() const
 		"Could not copy the screen DC into a memory DC"
 	);
 
-	HDC windowDC{ GetDC(GetWindowHandle()) };
-	THROW_IF_FAILED_GDI(
-		BitBlt(windowDC, 0, 0, screenWidth, screenHeight, memoryDC, 0, 0, SRCCOPY),
-		"Could not copy the memory DC into the window DC"
-	);
-
-	DeleteObject(bitmapHandle);
 	DeleteDC(memoryDC);
 	ReleaseDC(NULL, screenDC);
-	ReleaseDC(GetWindowHandle(), windowDC);
+
+	return backgroundBitmap;
 }
 
 bool CaptureWindow::PeekSaveRequest() noexcept

@@ -6,6 +6,7 @@ class CaptureWindow : public GenericWindow
 {
 private:
 	bool isSaveRequested{ false };
+	HBITMAP backgroundBitmap{};
 
 public:
 	CaptureWindow() noexcept;
@@ -16,7 +17,7 @@ public:
 	CaptureWindow operator=(const CaptureWindow&) = delete;
 	CaptureWindow operator=(const CaptureWindow&&) = delete;
 
-	void Capture() const;
+	HBITMAP Capture() const;
 	bool PeekSaveRequest() noexcept;
 
 private:

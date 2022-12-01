@@ -11,6 +11,8 @@ App::App()
 	mainWindow.Show();
 
 	captureWindow.Initialize();
+
+	editor.Initialize(captureWindow.GetWindowHandle());
 }
 
 App::~App()
@@ -27,6 +29,7 @@ int App::Run()
 			return *returnCode;
 
 		Update();
+		Render();
 	}
 }
 
@@ -51,11 +54,19 @@ void App::Update()
 	if (mainWindow.PeekCaptureRequest())
 	{
 		captureWindow.Show();
-		captureWindow.Capture();
+		HBITMAP screenshot{ captureWindow.Capture() };
+		editor.SetScreenshot(screenshot);
 	}
-	else if (captureWindow.PeekSaveRequest())
+
+	if (captureWindow.PeekSaveRequest())
 	{
 		fileSaver.Save(captureWindow.GetWindowHandle());
 		captureWindow.Hide();
 	}
+}
+
+void App::Render() const
+{
+	if(captureWindow.isVisible())
+		editor.Render();
 }
