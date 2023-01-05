@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Keyboard.h"
 #include <windows.h>
 #include <string>
 #include <functional>
@@ -14,6 +15,7 @@ private:
 	int height;
 	bool absoluteDimension;
 	const DWORD style;
+	Keyboard* keyboard;
 
 public:
 	GenericWindow(const GenericWindow&) = delete;
@@ -24,7 +26,8 @@ public:
 	GenericWindow(
 		const std::string& title, 
 		int width, int height, bool absoluteDimension,
-		DWORD style
+		DWORD style,
+		Keyboard* keyboard
 	) noexcept;
 	~GenericWindow() noexcept;
 
@@ -33,6 +36,7 @@ public:
 	bool isVisible() const noexcept;
 	HWND GetWindowHandle() const noexcept { return windowHandle; }
 	void Initialize();
+	void HandleInput(UINT message, WPARAM wParam, LPARAM lParam) noexcept;
 
 private:
 	virtual LRESULT WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) = 0;

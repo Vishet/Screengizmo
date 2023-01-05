@@ -134,6 +134,7 @@
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="FileSaver.cpp" />
     <ClCompile Include="GenericWindow.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="Exception.h" />
     <ClInclude Include="FileSaver.h" />
     <ClInclude Include="GenericWindow.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

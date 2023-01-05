@@ -18,10 +18,10 @@ Editor::Editor() noexcept
 
 Editor::~Editor() noexcept
 {
-	wicFactory->Release();
-	factory->Release();
-	renderTarget->Release();
-	screenshot->Release();
+	if(wicFactory) wicFactory->Release();
+	if(factory) factory->Release();
+	if(renderTarget) renderTarget->Release();
+	if(screenshot) screenshot->Release();
 }
 
 void Editor::Initialize(HWND targetWindow)

@@ -32,6 +32,7 @@ public:
 	void Initialize(HWND targetWindow);
 	void SetScreenshot(HBITMAP screenshot);
 	void Render() const;
+	//void SetSelectionTopLeft(int x, int y);
 
 private:
 	float GetDpiScale() const noexcept { return dpi / 96.0f; }

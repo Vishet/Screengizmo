@@ -51,17 +51,29 @@ std::optional<int> App::ProcessMessages() noexcept
 
 void App::Update()
 {
+	while (auto keyEvent{ keyboard.ReadKey() })
+	{
+		if (keyEvent->IsPressing())
+			switch (keyEvent->GetCode())
+			{
+			case VK_ESCAPE:
+				captureWindow.Hide();
+				break;
+			case VK_S:
+				if (keyboard.IsKeyDown(VK_CONTROL))
+				{
+					fileSaver.Save(captureWindow.GetWindowHandle());
+					captureWindow.Hide();
+				}
+				break;
+			};
+	}
+
 	if (mainWindow.PeekCaptureRequest())
 	{
 		captureWindow.Show();
 		HBITMAP screenshot{ captureWindow.Capture() };
 		editor.SetScreenshot(screenshot);
-	}
-
-	if (captureWindow.PeekSaveRequest())
-	{
-		fileSaver.Save(captureWindow.GetWindowHandle());
-		captureWindow.Hide();
 	}
 }
 

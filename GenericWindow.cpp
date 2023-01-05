@@ -1,18 +1,22 @@
 #include "GenericWindow.h"
 #include "Exception.h"
 
+#include <string>
+
 bool GenericWindow::isClassCreated{ false };
 
 GenericWindow::GenericWindow(
 	const std::string& title, 
 	int width, int height, bool absoluteDimension,
-	DWORD style
+	DWORD style,
+	Keyboard* keyboard
 ) noexcept :
 	title{ title },
 	width{ width },
 	height{ height },
 	absoluteDimension{ absoluteDimension },
-	style{ style }
+	style{ style },
+	keyboard{ keyboard }
 {
 }
 
@@ -64,6 +68,31 @@ void GenericWindow::Initialize()
 	THROW_IF_LAST_FAILED(windowHandle);
 }
 
+void GenericWindow::HandleInput(UINT message, WPARAM wParam, LPARAM lParam) noexcept
+{
+	switch (message)
+	{
+	case WM_SYSKEYDOWN:
+	case WM_KEYDOWN:
+		if(HIWORD(lParam) & ~KF_REPEAT)
+			keyboard->OnKeyPressed(static_cast<unsigned char>(wParam));
+		break;
+
+	case WM_SYSKEYUP:
+	case WM_KEYUP:
+		keyboard->OnKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+
+	case WM_CHAR:
+		keyboard->OnChar(static_cast<char>(wParam));
+		break;
+
+	case WM_KILLFOCUS:
+		keyboard->Clear();
+		break;
+	}
+}
+
 LRESULT CALLBACK GenericWindow::WindowProcedureCanalizer(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept
 {
 	if (message == WM_NCCREATE)
@@ -79,7 +108,10 @@ LRESULT CALLBACK GenericWindow::WindowProcedureCanalizer(HWND windowHandle, UINT
 	{
 		GenericWindow* const windowPointer{ reinterpret_cast<GenericWindow* const>(GetWindowLongPtr(windowHandle, GWLP_USERDATA)) };
 		if (windowPointer)
+		{
+			windowPointer->HandleInput(message, wParam, lParam);
 			return windowPointer->WindowProcedure(windowHandle, message, wParam, lParam);
+		}
 		else
 			return DefWindowProc(windowHandle, message, wParam, lParam);
 	}

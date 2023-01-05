@@ -20,7 +20,7 @@ public:
 	MainWindow operator=(const MainWindow&) = delete;
 	MainWindow operator=(const MainWindow&&) = delete;
 
-	MainWindow() noexcept;
+	MainWindow(Keyboard* keyboard) noexcept;
 	~MainWindow() noexcept;
 
 	bool PeekCaptureRequest() noexcept;

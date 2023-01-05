@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GenericWindow.h"
+#include "Keyboard.h"
 
 class CaptureWindow : public GenericWindow
 {
@@ -9,7 +10,7 @@ private:
 	HBITMAP backgroundBitmap{};
 
 public:
-	CaptureWindow() noexcept;
+	CaptureWindow(Keyboard* keyboard) noexcept;
 	~CaptureWindow() noexcept;
 
 	CaptureWindow(const CaptureWindow&) = delete;

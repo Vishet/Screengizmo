@@ -1,10 +1,8 @@
 #include "CaptureWindow.h"
 #include "Exception.h"
 
-#define VK_S 0x53
-
-CaptureWindow::CaptureWindow() noexcept :
-	GenericWindow("", GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), true, WS_POPUP)
+CaptureWindow::CaptureWindow(Keyboard* keyboard) noexcept :
+	GenericWindow("", GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), true, WS_POPUP, keyboard)
 {
 }
 
@@ -63,20 +61,7 @@ LRESULT CaptureWindow::WindowProcedure(HWND windowHandle, UINT message, WPARAM w
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	case WM_KEYDOWN:
-		switch (wParam)
-		{
-		case VK_ESCAPE:
-			Hide();
-			break;
-		case VK_S:
-			if (GetKeyState(VK_LCONTROL))
-			{
-				isSaveRequested = true;
-			}
-			break;
-		}
-		break;
+
 	default:
 		return DefWindowProc(windowHandle, message, wParam, lParam);
 	}

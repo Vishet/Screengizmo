@@ -1,8 +1,8 @@
 #include "MainWindow.h"
 #include "Exception.h"
 
-MainWindow::MainWindow() noexcept :
-	GenericWindow("Screengizmo", 0, 0, false, WS_OVERLAPPED | WS_SYSMENU)
+MainWindow::MainWindow(Keyboard* keyboard) noexcept :
+	GenericWindow("Screengizmo", 0, 0, false, WS_OVERLAPPED | WS_SYSMENU, keyboard)
 {
 }
 

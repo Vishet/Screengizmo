@@ -4,13 +4,15 @@
 #include "CaptureWindow.h"
 #include "FileSaver.h"
 #include "Editor.h"
+#include "Keyboard.h"
 #include <optional>
 
 class App
 {
 private:
-	MainWindow mainWindow{};
-	CaptureWindow captureWindow{};
+	Keyboard keyboard{};
+	MainWindow mainWindow{ &keyboard };
+	CaptureWindow captureWindow{ &keyboard };
 	FileSaver fileSaver{};
 	ULONG_PTR gdipToken{};
 	Editor editor{};
