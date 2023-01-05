@@ -14,6 +14,9 @@ private:
 	};
 	bool isCaptureRequested{ false };
 
+	HHOOK keyboardHookHandle{};
+	static MainWindow* mainWindowSingleton;
+
 public:
 	MainWindow(const MainWindow&) = delete;
 	MainWindow(const MainWindow&&) = delete;
@@ -28,4 +31,5 @@ public:
 private:
 	LRESULT WindowProcedure(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam) noexcept override;
 	void SetMenus(HWND windowHandle) const;
+	static LRESULT CALLBACK LowLevelKeyboardProc(int code, WPARAM wParam, LPARAM lParam);
 };

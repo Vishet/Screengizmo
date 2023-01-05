@@ -69,7 +69,7 @@ void App::Update()
 			};
 	}
 
-	if (mainWindow.PeekCaptureRequest())
+	if (mainWindow.PeekCaptureRequest() && !captureWindow.isVisible())
 	{
 		captureWindow.Show();
 		HBITMAP screenshot{ captureWindow.Capture() };
